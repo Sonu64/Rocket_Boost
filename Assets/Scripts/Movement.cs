@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
      if the object is reactivated at runtime (e.g., switching UI screens, 
      toggling objects on/off).
     */
+
     private void OnEnable() {
         thrust.Enable();
     }
