@@ -4,6 +4,8 @@ using UnityEngine.InputSystem; // Input System namespace
 public class Movement : MonoBehaviour
 {
     [SerializeField] InputAction thrust;
+    [SerializeField] float thrustStrength = 100f;
+    Rigidbody rigidbody;
 
     /**
      OnEnable() is called every time a script or GameObject is enabled. 
@@ -16,9 +18,15 @@ public class Movement : MonoBehaviour
         thrust.Enable();
     }
 
-    private void Update() {
+    private void Start() {
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate() {
         if (thrust.IsPressed()) {
-            Debug.Log("You Pressed Thrust key !");
+            // Vector3.up is a Vector3 = (0,1,0), Give very high thrustStrength
+            // as fixedDeltaTime is much lesser that DeltaTime
+            rigidbody.AddRelativeForce(Vector3.up*Time.fixedDeltaTime*thrustStrength);
         }
     }
 }
