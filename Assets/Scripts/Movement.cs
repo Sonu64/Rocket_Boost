@@ -8,7 +8,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float thrustStrength = 100f;
     [SerializeField] float rotationStrength = 60f;
 
-    Rigidbody rigidbody;
+    Rigidbody rigidBody;
+    AudioSource audioSource;
 
     /**
      OnEnable() is called every time a script or GameObject is enabled. 
@@ -23,7 +24,8 @@ public class Movement : MonoBehaviour
     }
 
     private void Start() {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate() {
@@ -35,7 +37,11 @@ public class Movement : MonoBehaviour
         if (thrust.IsPressed()) {
             // Vector3.up is a Vector3 = (0,1,0), Give very high thrustStrength
             // as fixedDeltaTime is much lesser that DeltaTime
-            rigidbody.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * thrustStrength);
+            rigidBody.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * thrustStrength);
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        } else {
+            audioSource.Stop();
         }
     }
 
@@ -45,16 +51,20 @@ public class Movement : MonoBehaviour
         // if-elseIf is better to ensure mutual Exclusiveness such that both doesn't happen
         // at the same time at any condition. Shouldn't happen though.
 
-        if (rotationInput < 0) { // -1 is for Right Rotation ABOUT THE Z-AXIS
-            ApplyRotation(rotationStrength);
-            //transforms to Vector3.forward * rotationStrength * Time.fixedDeltaTime for (0,0,1)
-        } else if (rotationInput > 0) { // +1 is for Left Rotation ABOUT THE Z-AXIS
-            ApplyRotation(-rotationStrength);
+        if (rotationInput > 0) { // +1, returned by hitting D
+            ApplyRotation(-rotationStrength); // we pass NEGATIVE of rotationStrength here due to the alignment of the Rocket in Space,
+                                              // Increasing the value of Z actually rotates the rocket LEFT. We want D to return +1
+                                              // and rotate to RIGHT, so we passed NEGATIVE Rotation Strength here to decrease Z.
             //transforms to Vector3.forward * (-rotationStrength) * Time.fixedDeltaTime for (0,0,-1)
+        } else if (rotationInput < 0) { // -1 returned by hitting A
+            ApplyRotation(rotationStrength);
+            //transforms to Vector3.forward * (rotationStrength) * Time.fixedDeltaTime for (0,0,+1)
         }
     }
 
     private void ApplyRotation(float currentFrameRotation) {
+        rigidBody.freezeRotation = true;
         transform.Rotate(Vector3.forward * currentFrameRotation * Time.fixedDeltaTime);
+        rigidBody.freezeRotation = false;
     }
 }
