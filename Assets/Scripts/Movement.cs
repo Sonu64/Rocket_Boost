@@ -1,5 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Input System namespace
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement; // Input System namespace
+
 
 public class Movement : MonoBehaviour
 {
@@ -31,6 +33,23 @@ public class Movement : MonoBehaviour
     private void FixedUpdate() {
         ProcessThrust();
         ProcessRotation();
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        switch(collision.gameObject.tag) {
+            case "Fuel":
+                Debug.Log("Fuel Hit");
+                break;
+            case "Friendly":
+                Debug.Log("In Launchpad");
+                break;
+            case "Finish":
+                Debug.Log("Reached Landing Pad");
+                break;
+            default:
+                ReloadLevel();
+                break;
+        }
     }
 
     private void ProcessThrust() {
@@ -66,5 +85,10 @@ public class Movement : MonoBehaviour
         rigidBody.freezeRotation = true;
         transform.Rotate(Vector3.forward * currentFrameRotation * Time.fixedDeltaTime);
         rigidBody.freezeRotation = false;
+    }
+
+    private void ReloadLevel() {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex; // will be dynamic for other scenes as well
+        SceneManager.LoadScene(sceneIndex);
     }
 }
