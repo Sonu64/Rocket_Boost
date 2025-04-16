@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // Input System namespace
+
 
 
 public class Movement : MonoBehaviour
