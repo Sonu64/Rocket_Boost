@@ -5,21 +5,29 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    // SERIALIZED VARIABLES at the Top
     [SerializeField] InputAction thrust;
     [SerializeField] InputAction rotation;
     [SerializeField] float thrustStrength = 100f;
     [SerializeField] float rotationStrength = 60f;
+    [SerializeField] AudioClip engineThrustSFX;
 
+    
+    // CACHED REFERENCE VARIABLES Come next
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+
+    // STATE VARIABLES Come next
+
+
+    // CALLBACKS like OnEnable(), Start(), OnCollisionEnter(), etc. comes next
     /*
      OnEnable() is called every time a script or GameObject is enabled. 
      This is important because you often want input actions to be re-enabled
      if the object is reactivated at runtime (e.g., switching UI screens, 
      toggling objects on/off).
     */
-
     private void OnEnable() {
         thrust.Enable();
         rotation.Enable();
@@ -36,14 +44,14 @@ public class Movement : MonoBehaviour
     }
 
 
-
+    // Then finally we declare OUR OWN METHODS.
     private void ProcessThrust() {
         if (thrust.IsPressed()) {
             // Vector3.up is a Vector3 = (0,1,0), Give very high thrustStrength
             // as fixedDeltaTime is much lesser that DeltaTime
             rigidBody.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * thrustStrength);
             if (!audioSource.isPlaying)
-                audioSource.Play();
+                audioSource.PlayOneShot(engineThrustSFX);
         } else {
                 audioSource.Stop();
         }

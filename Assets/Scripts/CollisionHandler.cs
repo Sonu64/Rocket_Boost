@@ -4,6 +4,12 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour {
 
     [SerializeField] float delay = 200f;
+    [SerializeField] AudioClip crashSFX;
+    [SerializeField] AudioClip victorySFX;
+
+    AudioSource audioSource; //same as 'this.gameObject.audioSource' or 'gameObject.audioSource'.
+    
+    private bool isControllable = true;
 
 
     /* 
@@ -25,8 +31,14 @@ public class CollisionHandler : MonoBehaviour {
       * 
       */
 
+    private void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnCollisionEnter(Collision collision) {
+
+        if (!isControllable) return;
+
         switch (collision.gameObject.tag) {
             case "Friendly":
                 Debug.Log("In Launchpad");
@@ -43,17 +55,24 @@ public class CollisionHandler : MonoBehaviour {
 
     private void StartCrashSequence() {
         // Disabling Controls once we crash
+        isControllable = false;
+        audioSource.Stop();
+        audioSource.PlayOneShot(crashSFX);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", delay);
     }
 
     private void StartVictorySequence() {
         // Disabling Controls once we crash
+        isControllable = false;
+        audioSource.Stop();
+        audioSource.PlayOneShot(victorySFX);
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", delay);
     }
 
     private void LoadNextLevel() {
+        isControllable = false;
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
 
