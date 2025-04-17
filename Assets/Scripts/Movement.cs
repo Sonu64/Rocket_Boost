@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-    /**
+    /*
      OnEnable() is called every time a script or GameObject is enabled. 
      This is important because you often want input actions to be re-enabled
      if the object is reactivated at runtime (e.g., switching UI screens, 
@@ -45,7 +45,7 @@ public class Movement : MonoBehaviour
             if (!audioSource.isPlaying)
                 audioSource.Play();
         } else {
-            audioSource.Stop();
+                audioSource.Stop();
         }
     }
 
@@ -56,15 +56,18 @@ public class Movement : MonoBehaviour
         // at the same time at any condition. Shouldn't happen though.
 
         if (rotationInput > 0) { // +1, returned by hitting D
-            ApplyRotation(-rotationStrength); // we pass NEGATIVE of rotationStrength here due to the alignment of the Rocket in Space,
-                                              // Increasing the value of Z actually rotates the rocket LEFT. We want D to return +1
-                                              // and rotate to RIGHT, so we passed NEGATIVE Rotation Strength here to decrease Z.
-            //transforms to Vector3.forward * (-rotationStrength) * Time.fixedDeltaTime for (0,0,-1)
+            ApplyRotation(-rotationStrength);
+            /* We pass NEGATIVE of rotationStrength here due to the alignment of the Rocket in Space,
+             Increasing the value of Z actually rotates the rocket LEFT. We want D to return +1
+             and rotate to RIGHT, so we passed NEGATIVE Rotation Strength here to decrease Z.
+             transforms to Vector3.forward * (-rotationStrength) * Time.fixedDeltaTime for (0,0,-1) */
         } else if (rotationInput < 0) { // -1 returned by hitting A
             ApplyRotation(rotationStrength);
             //transforms to Vector3.forward * (rotationStrength) * Time.fixedDeltaTime for (0,0,+1)
         }
     }
+
+
 
     private void ApplyRotation(float currentFrameRotation) {
         rigidBody.freezeRotation = true;

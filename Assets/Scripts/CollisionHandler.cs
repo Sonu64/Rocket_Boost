@@ -14,6 +14,7 @@ public class CollisionHandler : MonoBehaviour
                 break;
             case "Finish":
                 Debug.Log("Reached Landing Pad");
+                LoadNextLevel();
                 break;
             default:
                 ReloadLevel();
@@ -21,8 +22,20 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    private static void LoadNextLevel() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+            nextSceneIndex = 0;
+
+        SceneManager.LoadScene(nextSceneIndex);
+        
+    }
+
     private void ReloadLevel() {
-        int sceneIndex = SceneManager.GetActiveScene().buildIndex; // will be dynamic for other scenes as well
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex; 
+        // will be dynamic for other scenes as well
         SceneManager.LoadScene(sceneIndex);
     }
 }
