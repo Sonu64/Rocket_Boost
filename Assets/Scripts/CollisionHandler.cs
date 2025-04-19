@@ -6,6 +6,8 @@ public class CollisionHandler : MonoBehaviour {
     [SerializeField] float delay = 200f;
     [SerializeField] AudioClip crashSFX;
     [SerializeField] AudioClip victorySFX;
+    [SerializeField] ParticleSystem crashParticles;
+    [SerializeField] ParticleSystem victoryParticles;
 
     AudioSource audioSource; //same as 'this.gameObject.audioSource' or 'gameObject.audioSource'.
     
@@ -59,15 +61,20 @@ public class CollisionHandler : MonoBehaviour {
         audioSource.Stop();
         audioSource.PlayOneShot(crashSFX);
         GetComponent<Movement>().enabled = false;
+        crashParticles.Play();
         Invoke("ReloadLevel", delay);
     }
 
     private void StartVictorySequence() {
         // Disabling Controls once we crash
         isControllable = false;
+        // Stopping all other audios like thrust, etc.
         audioSource.Stop();
         audioSource.PlayOneShot(victorySFX);
+        // Disabling the Movement.cs Script
         GetComponent<Movement>().enabled = false;
+        // Playing the Particle effect
+        victoryParticles.Play();
         Invoke("LoadNextLevel", delay);
     }
 

@@ -736,11 +736,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7986764222222607698, guid: e1de4952a34e4fe4b90379cc284d5034, type: 3}
+      propertyPath: crashParticles
+      value: 
+      objectReference: {fileID: 1294086323}
+    - target: {fileID: 7986764222222607698, guid: e1de4952a34e4fe4b90379cc284d5034, type: 3}
+      propertyPath: victoryParticles
+      value: 
+      objectReference: {fileID: 1294086322}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1de4952a34e4fe4b90379cc284d5034, type: 3}
+--- !u!198 &1294086322 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2332718578636546395, guid: e1de4952a34e4fe4b90379cc284d5034, type: 3}
+  m_PrefabInstance: {fileID: 1294086321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1294086323 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2103821209010138558, guid: e1de4952a34e4fe4b90379cc284d5034, type: 3}
+  m_PrefabInstance: {fileID: 1294086321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2028525650
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +936,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5075349671628010454, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7515526912956163633, guid: ad39e1743733cb048b438c089ba4ec23, type: 3}
     - target: {fileID: 6207208775466059961, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.2
