@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float thrustStrength = 100f;
     [SerializeField] float rotationStrength = 60f;
     [SerializeField] AudioClip engineThrustSFX;
+    [SerializeField] ParticleSystem mainBoosterParticles; 
+    [SerializeField] ParticleSystem leftBoosterParticles, rightBoosterParticles;
 
     
     // CACHED REFERENCE VARIABLES Come next
@@ -50,10 +52,13 @@ public class Movement : MonoBehaviour
             // Vector3.up is a Vector3 = (0,1,0), Give very high thrustStrength
             // as fixedDeltaTime is much lesser that DeltaTime
             rigidBody.AddRelativeForce(Vector3.up * Time.fixedDeltaTime * thrustStrength);
+            if (!mainBoosterParticles.isPlaying)
+                mainBoosterParticles.Play();
             if (!audioSource.isPlaying)
                 audioSource.PlayOneShot(engineThrustSFX);
         } else {
-                audioSource.Stop();
+            mainBoosterParticles.Stop();
+            audioSource.Stop();
         }
     }
 
@@ -65,13 +70,26 @@ public class Movement : MonoBehaviour
 
         if (rotationInput > 0) { // +1, returned by hitting D
             ApplyRotation(-rotationStrength);
+            if (!rightBoosterParticles.isPlaying) {
+                leftBoosterParticles.Stop(); // Just to avoid both particles playing at the same time.
+                rightBoosterParticles.Play();
+            }
+                
             /* We pass NEGATIVE of rotationStrength here due to the alignment of the Rocket in Space,
              Increasing the value of Z actually rotates the rocket LEFT. We want D to return +1
              and rotate to RIGHT, so we passed NEGATIVE Rotation Strength here to decrease Z.
              transforms to Vector3.forward * (-rotationStrength) * Time.fixedDeltaTime for (0,0,-1) */
         } else if (rotationInput < 0) { // -1 returned by hitting A
             ApplyRotation(rotationStrength);
+            if(!leftBoosterParticles.isPlaying) {
+                rightBoosterParticles.Stop(); 
+                leftBoosterParticles.Play();
+            }
+                
             //transforms to Vector3.forward * (rotationStrength) * Time.fixedDeltaTime for (0,0,+1)
+        }else {
+            rightBoosterParticles.Stop();
+            leftBoosterParticles.Stop();
         }
     }
 

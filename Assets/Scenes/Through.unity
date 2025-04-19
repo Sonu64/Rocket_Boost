@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 52099ba6a362bb9459f8929f9524d807, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -507,13 +507,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41602004, y: -0.23358344, z: 0.111472204, w: 0.8717454}
+  m_LocalRotation: {x: 0.47421813, y: -0.295573, z: 0.08605354, w: 0.8248325}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 51.023, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 56.426, y: -47.233, z: -14.49}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +692,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5075349671628010454, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -1119778803015809145, guid: 5235f3354d55b3047977c1ad1328751a, type: 3}
     - target: {fileID: 6207208775466059961, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.42
@@ -1006,6 +1010,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5075349671628010454, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -1119778803015809145, guid: 5235f3354d55b3047977c1ad1328751a, type: 3}
     - target: {fileID: 6207208775466059961, guid: 75d62c7aedf595d489e97f78c63804d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.2
